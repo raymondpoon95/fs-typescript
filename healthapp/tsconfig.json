@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "nodenext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": ["**/*.ts"]
+}
