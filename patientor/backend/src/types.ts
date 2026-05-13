@@ -1,14 +1,4 @@
-// export type Weather = "sunny" | "rainy" | "cloudy" | "windy" | "stormy";
-
-// export type Visibility = "great" | "good" | "ok" | "poor";
-
-// export interface DiaryEntry {
-//   id: number;
-//   date: string;
-//   weather: Weather;
-//   visibility: Visibility;
-//   comment?: string;
-// }
+import { z } from "zod";
 
 export interface Diagnosis {
   code: string;
@@ -16,15 +6,26 @@ export interface Diagnosis {
   latin?: string;
 }
 
-export interface Patient {
+export const Gender = {
+  Male: "male",
+  Female: "female",
+  Other: "other",
+} as const;
+
+export const NewPatientEntrySchema = z.object({
+  name: z.string(),
+  dateOfBirth: z.iso.date(),
+  ssn: z.string(),
+  gender: z.enum(Gender),
+  occupation: z.string(),
+});
+
+export type Gender = (typeof Gender)[keyof typeof Gender];
+
+export type PatientWithoutSSN = Omit<Patient, "ssn" | "gender" | "occupation">;
+
+export type NewPatientEntry = z.infer<typeof NewPatientEntrySchema>;
+
+export interface Patient extends NewPatientEntry {
   id: string;
-  name: string;
-  dateOfBirth: string;
-  ssn: string;
-  gender: string;
-  occupation: string;
 }
-
-export type PatientWithoutSSN = Omit<Patient, "ssn">;
-
-// export type NonSensitiveDiaryEntry = Omit<DiaryEntry, "comment">;

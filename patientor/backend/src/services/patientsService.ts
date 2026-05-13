@@ -1,5 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
 import patientsData from "../../data/patients.ts";
-import type { Patient, PatientWithoutSSN } from "../types.ts";
+import type { NewPatientEntry, Patient, PatientWithoutSSN } from "../types.ts";
 
 const patients = patientsData as Patient[];
 
@@ -13,18 +14,16 @@ const getPatients = (): PatientWithoutSSN[] => {
   }));
 };
 
-const createPatient = (Object: unknown) => {
-  if (!Object || typeof Object !== Object)
-    throw new Error("Incorrect or missing data");
+const addNewPatient = (patient: NewPatientEntry) => {
+  const newPatient = {
+    ...patient,
+    id: uuidv4(),
+  };
 
-  // type check object
-
-  // parse methods
-
-  //return response
+  return patients.push(newPatient);
 };
 
 export default {
   getPatients,
-  createPatient,
+  addNewPatient,
 };

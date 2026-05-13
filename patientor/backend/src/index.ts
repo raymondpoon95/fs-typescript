@@ -9,7 +9,7 @@ app.use(cors());
 
 const apiBaseUrl = "/api";
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.get(`${apiBaseUrl}/ping`, (_req, res) => {
   console.log("someone pinged here");
