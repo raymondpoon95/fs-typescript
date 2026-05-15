@@ -14,16 +14,23 @@ const getPatients = (): PatientWithoutSSN[] => {
   }));
 };
 
-const addNewPatient = (patient: NewPatientEntry) => {
+const getPatient = (id: string): Patient | undefined => {
+  return patients.find((patient) => patient.id === id);
+};
+
+const addNewPatient = (patient: NewPatientEntry): Patient => {
   const newPatient = {
     ...patient,
     id: uuidv4(),
   };
 
-  return patients.push(newPatient);
+  patients.push(newPatient);
+
+  return newPatient;
 };
 
 export default {
   getPatients,
   addNewPatient,
+  getPatient,
 };

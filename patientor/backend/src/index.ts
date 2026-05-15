@@ -16,7 +16,7 @@ app.get(`${apiBaseUrl}/ping`, (_req, res) => {
   res.send("pong");
 });
 
-app.use(`${apiBaseUrl}/diagnosis`, diagnosisRouter);
+app.use(`${apiBaseUrl}/diagnoses`, diagnosisRouter);
 app.use(`${apiBaseUrl}/patients`, patientsRouter);
 
 app.listen(PORT, () => {
