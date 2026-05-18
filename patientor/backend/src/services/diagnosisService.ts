@@ -6,7 +6,6 @@ const diagnosis = diagnosisData as Diagnosis[];
 const getDiagnosises = (): Diagnosis[] => {
   return diagnosis;
 };
-
 export default {
   getDiagnosises,
 };
