@@ -19,22 +19,21 @@ interface BaseEntry {
   diagnosisCodes?: Array<Diagnosis["code"]>;
 }
 
-const HealthCheckRating = {
+export const HealthCheckRating = {
   Healthy: 0,
   LowRisk: 1,
   HighRisk: 2,
   CriticalRisk: 3,
 } as const;
 
-type HealthCheckRating =
-  (typeof HealthCheckRating)[keyof typeof HealthCheckRating];
+export type HealthCheckRating = (typeof HealthCheckRating)[keyof typeof HealthCheckRating];
 
 export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
   healthCheckRating: HealthCheckRating;
 }
 
-interface Discharge {
+export interface Discharge {
   date: string;
   criteria: string;
 }
@@ -44,7 +43,7 @@ export interface HospitalEntry extends BaseEntry {
   discharge: Discharge;
 }
 
-interface SickLeave {
+export interface SickLeave {
   startDate: string;
   endDate: string;
 }
@@ -55,10 +54,7 @@ export interface OccupationalHealthcareEntry extends BaseEntry {
   sickLeave?: SickLeave;
 }
 
-export type Entry =
-  | HospitalEntry
-  | OccupationalHealthcareEntry
-  | HealthCheckEntry;
+export type Entry = HospitalEntry | OccupationalHealthcareEntry | HealthCheckEntry;
 
 export interface Patient {
   id: string;
@@ -71,9 +67,3 @@ export interface Patient {
 }
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;
-
-export interface CheckDetailsProps {
-  codes?: string;
-  allDiagnosesCodes: Diagnosis[];
-  entry: Entry;
-}

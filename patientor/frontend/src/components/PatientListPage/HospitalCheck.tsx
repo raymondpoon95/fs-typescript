@@ -1,9 +1,13 @@
 import { Box, Card, CardContent } from "@mui/material";
-import { CheckDetailsProps } from "../../types";
+import { Diagnosis, HospitalEntry } from "../../types";
 
-const HospitalCheck = ({ allDiagnosesCodes, entry }: CheckDetailsProps) => {
-  const codeDetails = (codes: string) =>
-    allDiagnosesCodes.find(({ code }) => code === codes);
+interface HospitalCheckProps {
+  entry: HospitalEntry;
+  allDiagnosesCodes: Diagnosis[];
+}
+
+const HospitalCheck = ({ allDiagnosesCodes, entry }: HospitalCheckProps) => {
+  const codeDetails = (codes: string) => allDiagnosesCodes.find(({ code }) => code === codes);
 
   return (
     <>
@@ -19,6 +23,12 @@ const HospitalCheck = ({ allDiagnosesCodes, entry }: CheckDetailsProps) => {
                 {codes} {codeDetails?.name}
               </li>
             ))}
+
+            {entry?.discharge && (
+              <div>
+                {entry?.discharge.date} - {entry?.discharge.criteria}
+              </div>
+            )}
 
             <div>Diagnose by {entry?.specialist}</div>
           </CardContent>

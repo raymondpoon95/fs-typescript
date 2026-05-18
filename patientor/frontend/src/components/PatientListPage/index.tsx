@@ -1,15 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  Box,
-  Table,
-  Button,
-  TableHead,
-  Typography,
-  TableCell,
-  TableRow,
-  TableBody,
-} from "@mui/material";
+import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from "@mui/material";
 import axios from "axios";
 
 import { PatientFormValues, Patient } from "../../types";
@@ -25,7 +16,6 @@ interface Props {
 }
 
 const PatientListPage = ({ patients, setPatients }: Props) => {
-  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
@@ -44,10 +34,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && typeof e?.response?.data === "string") {
-          const message = e.response.data.replace(
-            "Something went wrong. Error: ",
-            "",
-          );
+          const message = e.response.data.replace("Something went wrong. Error: ", "");
           console.error(message);
           setError(message);
         } else {
@@ -78,12 +65,10 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
         </TableHead>
         <TableBody>
           {Object.values(patients).map((patient: Patient) => (
-            <TableRow
-              key={patient.id}
-              onClick={() => navigate(`patients/${patient.id}`)}
-              style={{ cursor: "pointer" }}
-            >
-              <TableCell>{patient.name}</TableCell>
+            <TableRow key={patient.id}>
+              <TableCell>
+                <Link to={`patients/${patient.id}`}>{patient.name}</Link>
+              </TableCell>
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
               <TableCell>
@@ -93,12 +78,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
           ))}
         </TableBody>
       </Table>
-      <AddPatientModal
-        modalOpen={modalOpen}
-        onSubmit={submitNewPatient}
-        error={error}
-        onClose={closeModal}
-      />
+      <AddPatientModal modalOpen={modalOpen} onSubmit={submitNewPatient} error={error} onClose={closeModal} />
       <Button variant="contained" onClick={() => openModal()}>
         Add New Patient
       </Button>

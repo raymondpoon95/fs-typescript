@@ -6,12 +6,8 @@ interface OccupationalHealthcareCheckProps {
   entry: OccupationalHealthcareEntry;
 }
 
-const OccupationalHealthcareCheck = ({
-  allDiagnosesCodes,
-  entry,
-}: OccupationalHealthcareCheckProps) => {
-  const codeDetails = (codes: string) =>
-    allDiagnosesCodes.find(({ code }) => code === codes);
+const OccupationalHealthcareCheck = ({ allDiagnosesCodes, entry }: OccupationalHealthcareCheckProps) => {
+  const codeDetails = (codes: string) => allDiagnosesCodes.find(({ code }) => code === codes);
 
   return (
     <>
@@ -30,6 +26,13 @@ const OccupationalHealthcareCheck = ({
             ))}
 
             <div>Diagnose by {entry?.specialist}</div>
+
+            {entry?.sickLeave && (
+              <div>
+                <div>Sick leave start date: {entry.sickLeave.startDate}</div>
+                <div>Sick leave start date: {entry.sickLeave.endDate}</div>
+              </div>
+            )}
           </CardContent>
         </Card>
       </Box>

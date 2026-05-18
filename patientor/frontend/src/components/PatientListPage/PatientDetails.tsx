@@ -43,17 +43,10 @@ const PatientDetails = () => {
       case "HealthCheck":
         return <HealthCheck entry={entry} />;
       case "Hospital":
-        return (
-          <HospitalCheck allDiagnosesCodes={allDiagnosesCodes} entry={entry} />
-        );
+        return <HospitalCheck allDiagnosesCodes={allDiagnosesCodes} entry={entry} />;
 
       case "OccupationalHealthcare":
-        return (
-          <OccupationalHealthcareCheck
-            allDiagnosesCodes={allDiagnosesCodes}
-            entry={entry}
-          />
-        );
+        return <OccupationalHealthcareCheck allDiagnosesCodes={allDiagnosesCodes} entry={entry} />;
       default:
         return null;
     }
@@ -62,8 +55,7 @@ const PatientDetails = () => {
   return (
     <div>
       <h1>
-        {patientDetails.name}{" "}
-        {patientDetails.gender === "male" ? <MaleIcon /> : <FemaleIcon />}
+        {patientDetails.name} {patientDetails.gender === "male" ? <MaleIcon /> : <FemaleIcon />}
       </h1>
       ssn: {patientDetails.ssn}
       <br />
@@ -78,13 +70,9 @@ const PatientDetails = () => {
         ))}
       </div>
       {addNewEntry ? (
-        <AddNewEntryForm setAddNewEntry={setAddNewEntry} />
+        <AddNewEntryForm patientId={patientDetails.id} setAddNewEntry={setAddNewEntry} allDiagnosesCodes={allDiagnosesCodes} />
       ) : (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setAddNewEntry(true)}
-        >
+        <Button variant="contained" color="primary" onClick={() => setAddNewEntry(true)}>
           Add new entry
         </Button>
       )}

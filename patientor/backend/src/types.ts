@@ -7,8 +7,7 @@ const HealthCheckRating = {
   CriticalRisk: 3,
 } as const;
 
-type HealthCheckRating =
-  (typeof HealthCheckRating)[keyof typeof HealthCheckRating];
+type HealthCheckRating = (typeof HealthCheckRating)[keyof typeof HealthCheckRating];
 
 export interface Diagnosis {
   code: string;
@@ -36,12 +35,7 @@ export const EntryWithoutIdSchema = BaseEntrySchema.omit({
   id: true,
 });
 
-const HealthCheckRatingSchema = z.union([
-  z.literal(HealthCheckRating.Healthy),
-  z.literal(HealthCheckRating.LowRisk),
-  z.literal(HealthCheckRating.HighRisk),
-  z.literal(HealthCheckRating.CriticalRisk),
-]);
+const HealthCheckRatingSchema = z.union([z.literal(HealthCheckRating.Healthy), z.literal(HealthCheckRating.LowRisk), z.literal(HealthCheckRating.HighRisk), z.literal(HealthCheckRating.CriticalRisk)]);
 
 const SickLeaveSchema = z.object({
   startDate: z.string(),
@@ -69,20 +63,16 @@ const HospitalEntrySchema = BaseEntrySchema.extend({
   discharge: DischargeSchema,
 });
 
-export const EntrySchema = z.discriminatedUnion("type", [
-  HealthCheckEntrySchema,
-  OccupationalHealthcareEntrySchema,
-  HospitalEntrySchema,
-]);
+export const EntrySchema = z.discriminatedUnion("type", [HealthCheckEntrySchema, OccupationalHealthcareEntrySchema, HospitalEntrySchema]);
 
 export const NewPatientEntrySchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   name: z.string(),
   dateOfBirth: z.iso.date(),
   ssn: z.string(),
   gender: z.enum(Gender),
   occupation: z.string(),
-  entries: z.array(EntrySchema),
+  entries: z.array(EntrySchema).optional(),
 });
 
 export type Gender = (typeof Gender)[keyof typeof Gender];
